@@ -17,7 +17,7 @@ const users = require('./routes/users');
 
 app.use(cors());
 
-app.set(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname ,'public')));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -29,8 +29,8 @@ require('./config/passport')(passport);
 
 app.use('/users', users);
 
-app.get('/', (req, res) => {
-    res.send('hello');
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public/index.html'));
 })
 
 app.listen(3000, () => {
