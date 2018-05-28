@@ -1,8 +1,8 @@
 <h3 class="my-3">Register</h3>
-<div class="card bg-danger my-3" *ngIf="error">
+<div class="card my-3" *ngIf="showMsg" [ngClass]="msgClass">
   <div class="card-body text-light"> {{ msg }} </div>
 </div>
-<form (submit)="onRegister()" #f="ngForm">
+<form (ngSubmit)="onRegister()" #f="ngForm">
   <div class="form-group">
     <label>Name</label>
     <input type="text" class="form-control" name="name" ngModel required #name="ngModel"
@@ -45,3 +45,4 @@
   </div>
   <input type="submit" value="Submit" class="btn btn-primary" [disabled]="!f.valid || passwordConfirm.value != password.value">
 </form>
+<br>

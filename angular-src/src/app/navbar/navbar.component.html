@@ -13,7 +13,10 @@
         <a class="nav-link" routerLink='dashboard' routerLinkActive='active'>Dashboard</a>
       </li>
     </ul>
-    <button class="btn btn-outline-warning my-2 my-sm-0 mx-1" type="submit" routerLink='login'>Log in</button>
-    <button class="btn btn-outline-success my-2 my-sm-0 mx-1" type="submit" routerLink='register'>Register</button>
+    <button class="btn btn-outline-info my-2 my-sm-0 mx-1" routerLink='profile' *ngIf="authService.loggedIn()">Profile</button>
+    <button class="btn btn-outline-danger my-2 my-sm-0 mx-1" type="submit" (click)="onLogout()" *ngIf="authService.loggedIn()">Log out</button>
+    
+    <button class="btn btn-outline-warning my-2 my-sm-0 mx-1" routerLink='login' *ngIf="!authService.loggedIn()">Log in</button>
+    <button class="btn btn-outline-success my-2 my-sm-0 mx-1" routerLink='register' *ngIf="!authService.loggedIn()">Register</button>
   </div>
 </nav>

@@ -14,15 +14,26 @@ router.post('/register', (req, res) => {
         password: req.body.password
     });
 
-    User.addUser(newUser, (err, user) => {
-        if (err) {
-            console.log(err);
-            
-            res.json({ success: false, msg: 'Failed to Register User.' });
+    User.getUserByUsername(newUser.username, (error, result) => {
+        
+        if (result) {
+            res.json({ success: false, msg: 'User already exists.' });
         } else {
-            res.json({ success: true, msg: 'Success - Register User.' });
+
+            User.addUser(newUser, (err, user) => {
+                if (err) {
+                    console.log(err);
+                    
+                    res.json({ success: false, msg: 'Failed to Register User.' });
+                } else {
+                    res.json({ success: true, msg: 'Success - Register User.' });
+                }
+            });
+
         }
-    });
+    })
+
+    
 });
 
 router.post('/authenticate', (req, res) => {
@@ -60,7 +71,7 @@ router.post('/authenticate', (req, res) => {
 });
 
 router.get('/profile', passport.authenticate('jwt', { session: false }), (req, res) => {
-    res.send('PROFILE');
+    res.send(req.user);
 });
 
 module.exports = router;
